@@ -1,11 +1,16 @@
+//Roberto Figueroa - 18306
+//Fatima Albeño - 18060
+//Programa principal: este programa permite elegri tres implementaciones de Map (TreeMap, HashMap y LinkedMap) para poder
+//  almacenar cartas
+
 import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
 import java.util.*;
-import java.util.stream.Stream;
 
 import static java.util.Map.Entry.comparingByValue;
 import static java.util.stream.Collectors.toMap;
+
 
 
 public class Main {
@@ -14,14 +19,13 @@ public class Main {
         //instacias utiles
         Factory<String,String> factory = new Factory<>();
         Scanner sc = new Scanner(System.in);
-        Map<String, String> deck;
-        Map<String, String> myDeck;
-        Map<String,Integer> cardCant;
+        Map<String, String> deck;  //este Map contendra todas las cartas
+        Map<String, String> myDeck;  //este Map contendra las cartas del usuario
+        Map<String,Integer> cardCant; //este Map contiene o lleva el control de las cartas repetidas
         String[] cards;
         String cadena;
-        ArrayList<String> cardsSplitted = new ArrayList<>();
-        String cardsReaded = "";
-        int wantToRepeat = 1;
+        ArrayList<String> cardsSplitted = new ArrayList<>(); //array que contendra las separacion del string de las cartas
+        int wantToRepeat = 1; //centinela
 
         System.out.println("Bienvenidos al lector de cartas!");
 
@@ -49,11 +53,7 @@ public class Main {
         }
         b.close();
 
-        System.out.println(cardsReaded);
-
         //separar las cartas por tipo .. .
-        //cards = cardsReaded.split("[\\|\n]");
-
         //agregar las cartas a la implementacion de Map correspondiente...
         for (int i = 0; i < cardsSplitted.size(); i += 2) {
             deck.put(cardsSplitted.get(i), cardsSplitted.get(i + 1));
@@ -82,7 +82,7 @@ public class Main {
                         System.out.println("Esa carta no existe!");
                     }
                     break;
-                case 2:
+                case 2://mostrar el tipo de carta indicada por el nombre
                     System.out.println("Ingrese el nombre de la carta para saber su tipo : ");
                     sc.nextLine();
                     String nameCard = sc.nextLine();
@@ -93,14 +93,14 @@ public class Main {
                     }
 
                     break;
-                case 3:
+                case 3: //muestra el nombre, tipo y cantidad de una carta
                     System.out.println(" Mis cartas  : ");
                     Iterator<Map.Entry<String, String>> userMapIterator = myDeck.entrySet().iterator();
                     while (userMapIterator.hasNext()) {
                         Map.Entry<String, String> pair = userMapIterator.next();
                         System.out.println(pair.getKey() + " | " + pair.getValue() + " Cantidad: " + cardCant.get(pair.getKey()));
                     }
-                case 4:
+                case 4: //muestra  el nombre, tipo y cantidad de una carta en orden
                     System.out.println(" Mis cartas  : ");
                     Map<String, String> sortedMap = myDeck
                             //access the entry Set
@@ -120,7 +120,7 @@ public class Main {
                         System.out.println(pair.getKey() + " | " + pair.getValue() + " Cantidad: " + cardCant.get(pair.getKey()));
                     }
                     break;
-                case 5:
+                case 5: //muestra todas las cartas en el deck principal
                     System.out.println("Cartas existentens en la baraja : ");
                     Iterator<Map.Entry<String, String>> cardMap = deck.entrySet().iterator();
                     while (cardMap.hasNext()) {
@@ -129,7 +129,7 @@ public class Main {
                     }
 
                     break;
-                case 6:
+                case 6: // muestra todas las cartas del deck principal ordenadamente
                     System.out.println("Cartas existentens en la baraja mostradas ordenadamentes : ");
                     Map<String, String> sortedGeneralMap = deck
                             //access the entry Set
@@ -158,4 +158,7 @@ public class Main {
     }
 
 
-
+/*Fuentes consultadas:
+* https://www.concretepage.com/java/jdk-8/java-8-stream-sorted-example
+* https://geekytheory.com/como-leer-un-fichero-en-java
+* */
